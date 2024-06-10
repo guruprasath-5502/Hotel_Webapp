@@ -46,7 +46,7 @@ const validateToken = async (
 const logout = async (req: Request, res: Response, next: NextFunction) => {
   res.clearCookie('secret-token', {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
+    secure: process.env.PROD_ENV === 'production',
   });
 
   return res
