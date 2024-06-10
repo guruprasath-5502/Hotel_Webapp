@@ -47,7 +47,7 @@ const logout = async (req: Request, res: Response, next: NextFunction) => {
   res.clearCookie('secret-token', {
     httpOnly: true,
     secure: process.env.PROD_ENV === 'production',
-    sameSite: 'none',
+    sameSite: process.env.PROD_ENV === 'production' ? 'none' : 'lax',
   });
 
   return res

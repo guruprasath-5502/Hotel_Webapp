@@ -11,7 +11,7 @@ const generateToken = (userId: string, res: Response): void => {
   res.cookie('secret-token', token, {
     httpOnly: true,
     secure: process.env.PROD_ENV === 'production',
-    sameSite: 'none',
+    sameSite: process.env.PROD_ENV === 'production' ? 'none' : 'lax',
     maxAge: 24 * 60 * 60 * 1000,
   });
 
