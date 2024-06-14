@@ -28,6 +28,16 @@ const createHotel = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-const hotelController = { createHotel };
+const getHotel = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const hotels = await Hotel.find({ userId: req.user._id.toString() });
+
+    return res.status(201).json({ status: true, data: hotels });
+  } catch (error) {
+    next(new Error('Error fetching hotel'));
+  }
+};
+
+const hotelController = { createHotel, getHotel };
 
 export default hotelController;

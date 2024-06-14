@@ -13,4 +13,6 @@ export default function (app: Application): void {
     validateCreateHotelRequest,
     hotelController.createHotel
   );
+
+  app.get('/api/my-hotels', isAuthenticated, hotelController.getHotel);
 }
