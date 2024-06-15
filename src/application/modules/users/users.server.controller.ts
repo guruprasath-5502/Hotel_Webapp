@@ -37,7 +37,7 @@ const register = async (req: Request, res: Response, next: NextFunction) => {
     jwtLib.generateToken(newUser._id.toString(), res);
 
     return res
-      .status(200)
+      .status(201)
       .json({ status: true, data: { userId: newUser._id.toString() } });
   } catch (error) {
     next(new Error('Error registering user'));

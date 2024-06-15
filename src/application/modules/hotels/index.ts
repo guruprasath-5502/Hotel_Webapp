@@ -15,4 +15,18 @@ export default function (app: Application): void {
   );
 
   app.get('/api/my-hotels', isAuthenticated, hotelController.getHotel);
+
+  app.get(
+    '/api/my-hotels/:id',
+    isAuthenticated,
+    hotelController.getSingleHotel
+  );
+
+  app.put(
+    '/api/my-hotels/:hotelId',
+    isAuthenticated,
+    upload.array('imageFiles', 6),
+    validateCreateHotelRequest,
+    hotelController.updateHotel
+  );
 }
