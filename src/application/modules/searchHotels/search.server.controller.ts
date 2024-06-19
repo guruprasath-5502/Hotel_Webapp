@@ -52,6 +52,21 @@ const searchHotels = async (
   }
 };
 
+const searchSingleHotel = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const id = req.params.id.toString();
+  try {
+    const hotel = await Hotel.findById(id);
+
+    return res.status(200).json({ status: true, data: hotel });
+  } catch (error) {
+    next(new Error('Error fetching data'));
+  }
+};
+
 const constructSearchQuery = (queryParams: any) => {
   let constructedQuery: any = {};
 
@@ -107,6 +122,6 @@ const constructSearchQuery = (queryParams: any) => {
   return constructedQuery;
 };
 
-const searchController = { searchHotels };
+const searchController = { searchHotels, searchSingleHotel };
 
 export default searchController;
