@@ -79,13 +79,13 @@ const constructSearchQuery = (queryParams: any) => {
 
   if (queryParams.adultCount) {
     constructedQuery.adultCount = {
-      $gte: parseInt(queryParams.adultCount),
+      $lte: parseInt(queryParams.adultCount),
     };
   }
 
   if (queryParams.childCount) {
     constructedQuery.childCount = {
-      $gte: parseInt(queryParams.childCount),
+      $lte: parseInt(queryParams.childCount),
     };
   }
 
