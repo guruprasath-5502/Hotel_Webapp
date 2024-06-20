@@ -16,6 +16,8 @@ export default function (app: Application): void {
 
   app.get('/api/my-hotels', isAuthenticated, hotelController.getHotel);
 
+  app.get('/api/hotels', hotelController.allHotels);
+
   app.get(
     '/api/my-hotels/:id',
     isAuthenticated,

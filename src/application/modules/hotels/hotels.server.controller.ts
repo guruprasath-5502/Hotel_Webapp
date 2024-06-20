@@ -95,6 +95,22 @@ const updateHotel = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-const hotelController = { createHotel, getHotel, getSingleHotel, updateHotel };
+const allHotels = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const hotels = await Hotel.find().sort('-lastUpdated');
+
+    return res.status(201).json({ status: true, data: hotels });
+  } catch (error) {
+    next(new Error('Oops! Something went wrong'));
+  }
+};
+
+const hotelController = {
+  createHotel,
+  getHotel,
+  getSingleHotel,
+  updateHotel,
+  allHotels,
+};
 
 export default hotelController;
