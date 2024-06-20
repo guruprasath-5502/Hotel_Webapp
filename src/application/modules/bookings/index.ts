@@ -14,4 +14,10 @@ export default function (app: Application): void {
     isAuthenticated,
     bookingsController.createBooking
   );
+
+  app.get(
+    '/api/my-bookings',
+    isAuthenticated,
+    bookingsController.getAllBookings
+  );
 }

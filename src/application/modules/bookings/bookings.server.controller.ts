@@ -104,12 +104,40 @@ const createBooking = async (
 
     return res.status(200).json({ status: true, data: hotel });
   } catch (error) {
-    console.log(error);
-
     next(new Error('Something Went Wrong!'));
   }
 };
 
-const bookingsController = { paymentIntent, createBooking };
+const getAllBookings = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const hotels = await Hotel.find({
+      bookings: {
+        $elemMatch: { userId: req.user._id.toString() },
+      },
+    });
+
+    const result = hotels.map((hotel) => {
+      const userBookings = hotel.bookings.filter(
+        (booking) => booking.userId.toString() === req.user._id.toString()
+      );
+
+      const hotelWithUserBookings = {
+        ...hotel.toObject(),
+        bookings: userBookings,
+      };
+
+      return hotelWithUserBookings;
+    });
+    return res.status(200).json({ status: true, data: result });
+  } catch (error) {
+    next(new Error('Failed to fetch bookings'));
+  }
+};
+
+const bookingsController = { paymentIntent, createBooking, getAllBookings };
 
 export default bookingsController;
