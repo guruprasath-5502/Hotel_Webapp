@@ -4,6 +4,7 @@ import users from './users';
 import auth from './auth';
 import hotels from './hotels';
 import searchHotels from './searchHotels';
+import bookings from './bookings';
 
 export default (app: Application): void => {
   // /api/users
@@ -17,4 +18,7 @@ export default (app: Application): void => {
 
   // /api/hotels/search
   searchHotels(app);
+
+  // /api/hotels/:hotelId/bookings
+  bookings(app);
 };

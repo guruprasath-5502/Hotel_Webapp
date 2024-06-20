@@ -44,6 +44,24 @@ const register = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-const userController = { register };
+const current = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const userId = req.user._id.toString();
+
+    const user = await User.findById(userId);
+
+    if (!user) {
+      const err = new Error('User Not Found');
+      Object.assign(err, { statusCode: 400 });
+      return next(err);
+    }
+
+    return res.status(200).json({ status: true, data: user });
+  } catch (error) {
+    next(new Error('Error fetching user details'));
+  }
+};
+
+const userController = { register, current };
 
 export default userController;
